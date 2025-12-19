@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Happy Birthday 💙</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+      color: #fff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    section {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      text-align: center;
+    }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(12px);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 600px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      animation: fadeIn 1.2s ease;
+    }
+    h1 { font-size: 3rem; margin-bottom: 10px; }
+    h2 { font-weight: 400; margin-bottom: 30px; }
+    p { line-height: 1.7; font-size: 1.1rem; }
+    button {
+      margin-top: 30px;
+      padding: 14px 30px;
+      border-radius: 30px;
+      border: none;
+      background: #5dade2;
+      color: #002b45;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    button:hover { background: #85c1e9; transform: scale(1.05); }
+
+    .hidden { display: none; }
+
+    .hearts span {
+      position: fixed;
+      bottom: -50px;
+      font-size: 24px;
+      animation: floatUp linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes floatUp {
+      from { transform: translateY(0); }
+      to { transform: translateY(-110vh); }
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Fireworks for last section */
+    .firework {
+      position: fixed;
+      width: 5px;
+      height: 5px;
+      background: red;
+      border-radius: 50%;
+      pointer-events: none;
+      animation: explode 1s ease-out forwards;
+    }
+
+    @keyframes explode {
+      0% { transform: scale(1) translate(0,0); opacity: 1; }
+      100% { transform: scale(2) translate(var(--x), var(--y)); opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Section 1 -->
+  <section>
+    <div class="card">
+      <h1>Happy 19th Birthday 💙</h1>
+      <h2>Grace</h2>
+      <p>
+        "How do I love thee? Let me count the ways." — Elizabeth Barrett Browning
+      </p>
+      <p>
+        Nineteen candles shine for you today, Grace,
+        each a reflection of the beauty, the joy, and the light you bring.
+        Not a little girl anymore, but a radiant woman whose heart and soul
+        grow deeper with every moment.
+      </p>
+      <p>
+        Your laughter is a melody, your smile a sunrise, and your presence a gentle comfort.
+        The world feels softer, warmer, and more magical simply because you are in it.
+        Every heartbeat, every breath, every dream you hold is cherished and celebrated.
+      </p>
+      <p>
+        May this year wrap you in love, guide your steps with joy,
+        and remind you always that you are endlessly cherished.
+        Happy birthday, my dearest Grace 💙
+      </p>
+      <button onclick="nextSection()">Tap to continue ✨</button>
+    </div>
+  </section>
+
+  <!-- Section 2 -->
+  <section class="hidden" id="section2">
+    <div class="card">
+      <h1>Just You 🌊</h1>
+      <p>
+        There is poetry in the way you exist,
+        in the quiet kindness of your heart
+        and the way your laughter lingers long after it fades.
+      </p>
+      <p>
+        Being with you feels like calm tides and safe shores,
+        like home I never knew I was searching for.
+      </p>
+      <button onclick="nextSection()">Keep going 🌊</button>
+    </div>
+  </section>
+
+  <!-- Section 3 -->
+  <section class="hidden" id="section3">
+    <div class="card">
+      <h1>My Wish For You 🎂</h1>
+      <p>
+        May this year wrap you in peace,
+        teach you how deeply you are loved,
+        and remind you — even on quiet days —
+        how extraordinary you truly are.
+      </p>
+      <p>
+        Wherever life carries you next,
+        I hope it always feels gentle,
+        always feels kind.
+      </p>
+      <p style="margin-top:20px;font-weight:600;">
+        Happy 19th Birthday, Grace 💙<br>
+        Big girl now — and more beautiful than ever.
+      </p>
+    </div>
+  </section>
+
+  <div class="hearts" id="hearts"></div>
+
+  <script>
+    let current = 1;
+    function nextSection() {
+      document.querySelectorAll('section')[current - 1].classList.add('hidden');
+      document.querySelectorAll('section')[current].classList.remove('hidden');
+      current++;
+      // Trigger fireworks on last section
+      if(current === 4){ launchFireworks(); }
+    }
+
+    // Floating hearts (red + blue mix)
+    const heartContainer = document.getElementById('hearts');
+    setInterval(() => {
+      const heart = document.createElement('span');
+      heart.innerHTML = Math.random() > 0.5 ? '💙' : '❤️';
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (3 + Math.random() * 4) + 's';
+      heartContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 7000);
+    }, 500);
+
+    // Fireworks function
+    function launchFireworks(){
+      const colors = ['#ff0000','#ff6600','#ffcc00','#ff3399','#ff0066'];
+      for(let i=0;i<50;i++){
+        const firework = document.createElement('div');
+        firework.classList.add('firework');
+        firework.style.left = Math.random()*100 + 'vw';
+        firework.style.bottom = Math.random()*30 + 'vh';
+        firework.style.background = colors[Math.floor(Math.random()*colors.length)];
+        firework.style.setProperty('--x',(Math.random()*200-100)+'px');
+        firework.style.setProperty('--y',(Math.random()*200-100)+'px');
+        document.body.appendChild(firework);
+        setTimeout(()=>firework.remove(),1000);
+      }
+    }
+  </script>
+
+</body>
+</html>
